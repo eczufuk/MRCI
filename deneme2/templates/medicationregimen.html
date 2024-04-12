@@ -1,0 +1,184 @@
+{% extends 'layout.html' %}
+
+{% block page_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+
+{% endblock %}
+
+
+{% block title %}Ana Sayfa{% endblock %}
+
+{% block content %}
+<form method="post">
+    <label for="dosage_form">Dozaj Adı:</label>
+    <select id="dosage_form" name="dosage_form" required>
+        <option value="capsule_tablet">Kapsül-Tablet</option>
+        <option value="gargle">Gargara</option>
+        <option value="pastil_chewing_gum">Pastil-Sakız</option>
+        <option value="liquid">Sıvı</option>
+        <option value="powder">Toz-Granül</option>
+        <option value="sublingual">Dilaltı Tablet-Sprey</option>
+        <option value="cream_gel_ointment">Krem-Jel-Merhem</option>
+        <option value="solution">Solüsyon</option>
+        <option value="resin_paste">Zamk-Macun</option>
+        <option value="patch">Yama</option>
+        <option value="spray">Sprey</option>
+        <option value="ear_drops_cream_ointment">Kulak Damlası-Kremi-Merhemi</option>
+        <option value="eye_drops">Göz Damlası</option>
+        <option value="eye_gel_ointment">Göz Jeli-Merhemi</option>
+        <option value="nose_drops_cream_ointment">Burun Damlası-Kremi-Merhemi</option>
+        <option value="nasal_spray">Burun Spreyi</option>
+        <option value="aerosol">Aerosol</option>
+        <option value="metered_dose_inhaler">Ölçülü Doz İnhaler</option>
+        <option value="nebulizer">Nebül</option>
+        <option value="oxygen">Oksijen</option>
+        <option value="others">Diğerleri</option>
+        <option value="dialysis">Diyaliz</option>
+        <option value="enema">Lavman</option>
+        <option value="injection_ready">İnjeksiyon/Hazır</option>
+        <option value="injection_ampoule">İnjeksiyon/Ampul</option>
+        <option value="pessary">Pessari</option>
+        <option value="suppository">Supozituvar</option>
+        <option value="vaginal_cream">Vajinal Krem</option>
+        <option value="patient_controlled_analgesia">Hasta Kontrollü Analjezi</option>
+    </select>
+<hr>
+<label for="dosage_frequency">Doz Sıklığı:</label>
+<select id="dosage_frequency" name="dosage_frequency" required>
+    <option value="once_daily">Günde Bir Kez</option>
+    <option value="as_needed_once_daily">İhtiyaç Halinde Günde Bir Kez</option>
+    <option value="twice_daily">Günde İki Kez</option>
+    <option value="as_needed_twice_daily">İhtiyaç Halinde Günde İki Kez</option>
+    <option value="three_times_daily">Günde Üç Kez</option>
+    <option value="as_needed_three_times_daily">İhtiyaç Halinde Günde Üç Kez</option>
+    <option value="four_times_daily">Günde Dört Kez</option>
+    <option value="as_needed_four_times_daily">İhtiyaç Halinde Günde Dört Kez</option>
+    <option value="every_12_hours">12 Saat Arayla</option>
+    <option value="as_needed_every_12_hours">İhtiyaç Halinde 12 Saat Arayla</option>
+    <option value="every_8_hours">8 Saat Arayla</option>
+    <option value="as_needed_every_8_hours">İhtiyaç Halinde 8 Saat Arayla</option>
+    <option value="every_6_hours">6 Saat Arayla</option>
+    <option value="as_needed_every_6_hours">İhtiyaç Halinde 6 Saat Arayla</option>
+    <option value="every_4_hours">4 Saat Arayla</option>
+    <option value="as_needed_every_4_hours">İhtiyaç Halinde 4 Saat Arayla</option>
+    <option value="every_2_hours">2 Saat Arayla</option>
+    <option value="as_needed_every_2_hours">İhtiyaç Halinde 2 Saat Arayla</option>
+    <option value="as_needed_oxygen">İhtiyaç Halinde Oksijen</option>
+    <option value="oxygen_less_than_15_hours">Oksijen <15 Saat</option>
+    <option value="oxygen_greater_than_15_hours">Oksijen >15 Saat</option>
+</select>
+<hr>
+<label for="additional_instructions">İlave Talimatlar:</label>
+<select id="additional_instructions" name="additional_instructions" required>
+    <option value="no-needed"></option>
+    <option value="crush">Kırınız ya da eziniz</option>
+    <option value="dissolve">Çözündürünüz</option>
+    <option value="two_tablets_or_puffs_same_time">Aynı anda iki tablet veya iki puf</option>
+    <option value="various_doses">Çeşitli dozlar</option>
+    <option value="specific_time">Spesifik zamanda alım</option>
+    <option value="with_meal">Yemekle alım zamanı</option>
+    <option value="with_specific_liquid">Özel bir sıvı ile alım</option>
+    <option value="as_prescribed">Tarif edildiği gibi</option>
+    <option value="increased_dosing">Artan dozlam</option>
+    <option value="alternative_dosing">Alternatif dozlam</option>
+    </select>
+<hr>
+    
+<!-- İlaç eklemek için butonlar -->
+<button type="submit" name="calculate">Hesapla</button>
+<button type="button" onclick="addMedication()">İlave Et</button>
+<button type="button" onclick="clearForm()">Temizle</button>
+
+<!-- İlaçları gösteren div -->
+<div id="medicationsList">
+    <!-- İlave edilen ilaçları göstermek için bir boş div -->
+    {% for med in medications %}
+        <p>{{ med.dosage_form }}, {{ med.dosage_frequency }}, {{ med.additional_instructions }}</p>
+    {% endfor %}
+</div>
+
+<!-- Toplam puanı gösteren div -->
+<div id="totalScore">
+    <p>Toplam Puan: {{ total_score }}</p>
+</div>
+
+<!-- JavaScript kodları -->
+<script>
+    function addMedication() {
+        // İlaç bilgilerini al
+        var dosageForm = document.getElementById("dosage_form").value;
+        var dosageFrequency = document.getElementById("dosage_frequency").value;
+        var additionalInstructions = document.getElementById("additional_instructions").value;
+
+        // İlaç bilgilerini ekranda göstermek için bir div oluştur
+        var medicationDiv = document.createElement("div");
+        medicationDiv.innerHTML = "<p>" + dosageForm + ", " + dosageFrequency + ", " + additionalInstructions + "</p>";
+
+        // İlaçları göstermek için olan div'e ekle
+        document.getElementById("medicationsList").appendChild(medicationDiv);
+
+        // Toplam puanı güncelle
+        updateTotalScore();
+    }
+
+    function updateTotalScore() {
+        var totalScoreDiv = document.getElementById("totalScore");
+
+        // Eğer ilaçlar eklenmişse, toplam puanı hesapla ve göster
+        if (medications.length > 0) {
+            var totalScore = 0;
+
+            // Toplam puanı ekranda göster
+            totalScoreDiv.innerHTML = "<p>Toplam Puan: " + totalScore + "</p>";
+        } else {
+            // Eğer ilaç eklenmemişse, toplam puanı sıfırla
+            totalScoreDiv.innerHTML = "";
+        }
+    }
+
+    // Temizle butonuna tıklandığında formu sıfırla
+function clearForm() {
+    // Form alanlarını sıfırla
+    document.getElementById("dosage_form").value = "";
+    document.getElementById("dosage_frequency").value = "";
+    document.getElementById("additional_instructions").value = "";
+
+    // Seçilen ilaçları gösteren div'i temizle
+    var medicationsListDiv = document.getElementById("medicationsList");
+    medicationsListDiv.innerHTML = "";
+
+    // Toplam puanı gösteren div'i temizle
+    var totalScoreDiv = document.getElementById("totalScore");
+    totalScoreDiv.innerHTML = "";
+
+    // İlaçları içeren listeyi temizle
+    medications = [];
+
+    // Toplam puanı güncelle
+    updateTotalScore();
+    
+    // Flask ile iletişim kurarak server tarafındaki verileri de temizle
+    fetch('/clear-form', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                console.log('Form cleared on the server side.');
+            } else {
+                console.error('Failed to clear form on the server side.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
+</script>
+
+    
+{% endblock %}
+
+
+  
+
+
+
+

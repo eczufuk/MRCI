@@ -1,0 +1,36 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Style */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    margin: 20px;
+}
+
+/* Heading Styles */
+h2 {
+    color: #c17329; /* Mavi renk */
+}
+
+h3 {
+    color: #990000; /* Kırmızı renk */
+}
+
+/* Paragraph Styles */
+p {
+    margin-bottom: 16px;
+}
+
+/* Container Styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Add more styles based on your requirements */

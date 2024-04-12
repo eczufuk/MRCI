@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block page_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+{% endblock %}
+
+{% block title %}İlaç Komplekslik İndeksi{% endblock %}
+
+{% block content %}
+<h1>İlaç Komplekslik İndeksi Sonuçları</h1>
+<p>Dozaj Formu Puanı: {{ form_puan }}</p>
+<p>Dozaj Sıklığı Puanı: {{ frequency_puan }}</p>
+<p>İlave Talimatlar Puanı: {{ additional_instructions_puan }}</p>
+<p>Hesaplanan İndeks: {{ complexity_index }}</p>
+<a href="{{ url_for('medication_regimen') }}">Yeni Hesaplama Yap</a>
+{% endblock %}

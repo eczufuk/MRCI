@@ -1,0 +1,31 @@
+/* static/style.css */
+body {
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+    color:#030303
+}
+
+
+title {
+        color: #0066cc; /* Başlık rengi */
+        font-family: 'Arial', sans-serif; /* Başlık yazı tipi */
+    }
+
+.main-content {
+    display: flex;
+}
+
+.article-section {
+    flex: 5;
+    padding-right: 80px;
+}
+
+.sidebar {
+    flex: 1;
+    background-color: #fafafa;
+    padding: 40px;
+    border-radius: 40px;
+}
+
+.article-link {
+    margin-bottom: 80px;
+}

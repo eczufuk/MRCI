@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}İlaç Rejimi Karmaşıklık İndeksi{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+    {% block extra_styles %}{% endblock %}
+    
+   
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #fff8f8;
+            padding: 10px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+        }
+      
+    </style>
+</head>      
+<body>
+    <header>
+        <h1>İlaç Rejimi Karmaşıklık İndeksi</h1>
+    </header>
+    <nav>
+        <a href="/">Ana Sayfa</a>
+        <a href="/about">İlaç Rejimi Karmaşıklık İndeksi Nedir</a>
+        <a href="/medicationregimen">Hesaplama Aracı</a>
+    </nav>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

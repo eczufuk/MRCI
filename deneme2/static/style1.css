@@ -1,0 +1,52 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Style */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+}
+
+/* Form Container Style */
+form {
+    max-width: 16000px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: #b9b7b7;
+    border-radius: 80px;
+    box-shadow: 0 0 10px rgba(117, 107, 107, 0.1);
+}
+
+/* Label Style */
+label {
+    display: block;
+    margin-bottom: 18px;
+    font-weight: bold;
+}
+
+/* Select Style */
+select {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Button Style */
+button {
+    background-color: #ff8903;
+    color: #000000;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 64px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #da8d08;
+}
